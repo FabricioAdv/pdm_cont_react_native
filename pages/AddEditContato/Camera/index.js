@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Camera } from 'expo-camera';
 
-const Cam = ({ style, cameraType, reff, takePicture, camType, flMode, flashButton }) =>
+const Cam = ({ style, cameraType, reff, takePicture, camType, flMode, flashButton, returnBack }) =>
 {
     return (
         <Camera
@@ -11,6 +11,14 @@ const Cam = ({ style, cameraType, reff, takePicture, camType, flMode, flashButto
             ref={ reff }
             flashMode={ flMode }
         >
+            <TouchableOpacity
+                onPress={ returnBack }
+            >
+                <Image
+                    style={ [styles.imagemBack] }
+                    source={ require('../../../Images/arrow_back.png') }
+                />
+            </TouchableOpacity>
             <View
                 style={ styles.viewCam }
             >
@@ -66,6 +74,13 @@ const styles = StyleSheet.create({
         padding: 20,
         justifyContent: 'space-between'
     },
+    viewReturn: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignSelf: 'center',
+        flex: 1,
+        alignItems: 'center'
+    },
     viewButton: {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
@@ -88,6 +103,13 @@ const styles = StyleSheet.create({
     texto: {
         color: 'white',
         alignSelf: 'center'
+    },
+    imagemBack: {
+        marginTop: 50,
+        marginStart: 20,
+        width: 50,
+        height: 50,
+        resizeMode: 'contain'
     }
 });
 

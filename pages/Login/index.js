@@ -31,7 +31,7 @@ const Login = () =>
 
     const validarAcesso = () =>
     {
-        if (usuario.toLocaleLowerCase() === 'admin' && senha.toLocaleLowerCase() === 'admin')
+        if (usuario.toLocaleLowerCase() === '' && senha.toLocaleLowerCase() === '')
         {
             setLoginInvalido(false);
             setUsuario("");
@@ -117,10 +117,11 @@ const styles = StyleSheet.create({
     },
     imageApp: {
         alignSelf: 'center',
-        marginTop: 50
+        marginTop: 10
     },
     tituloApp: {
-        margin: 20,
+        marginTop: 20,
+        marginBottom: 10,
         color: '#20232a',
         textAlign: 'center',
         fontSize: 30,

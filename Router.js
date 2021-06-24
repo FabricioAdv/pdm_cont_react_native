@@ -12,10 +12,26 @@ const Router = () =>
 {
     return (
         <NavigationContainer>
-            <Stack.Navigator headerMode="none">
-                <Stack.Screen name="Login" component={ Login } />
-                <Stack.Screen name="Main" component={ Main } />
-                <Stack.Screen name="Add / Edit contatos" component={ AddEditContato } />
+            <Stack.Navigator
+                headerMode="screen"
+            >
+                <Stack.Screen
+                    name="Login"
+                    component={ Login }
+                />
+                <Stack.Screen
+                    name="Main"
+                    component={ Main }
+                    options={
+                        {
+                            title: "Listagem de contatos"
+                        }
+                    }
+                />
+                <Stack.Screen
+                    name="Add / Edit contatos"
+                    component={ AddEditContato }
+                />
             </Stack.Navigator>
         </NavigationContainer>
     );

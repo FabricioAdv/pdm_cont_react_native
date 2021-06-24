@@ -1,4 +1,4 @@
-import React, { useState, useContext, useMemo, useCallback, useRef } from 'react';
+import React, { useState, useContext, useMemo, useCallback, useRef, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { Camera } from 'expo-camera';
 
@@ -26,6 +26,18 @@ const ContatoForm = ({ id, nome = '', descricao = '', foto = '' }) =>
     const { save, exclude } = useContext(ContatoContext);
 
     const ref = useRef(null);
+
+    useEffect(() =>
+    {
+        if (!id)
+        {
+            navigation.setOptions({ title: "Adicionar contato" });
+        }
+        else
+        {
+            navigation.setOptions({ title: "Editar contato" });
+        }
+    }, [])
 
     const onSave = useCallback(() => 
     {
@@ -57,6 +69,8 @@ const ContatoForm = ({ id, nome = '', descricao = '', foto = '' }) =>
         if (status === 'granted')
         {
             setStartCamera(true);
+
+            navigation.setOptions({ headerShown: false });
         }
         else
         {
@@ -88,6 +102,8 @@ const ContatoForm = ({ id, nome = '', descricao = '', foto = '' }) =>
         setFotoAtual(capturedImage.uri);
 
         setStartCamera(false);
+
+        navigation.setOptions({ headerShown: true });
     }
 
     const handleFlashMode = () =>
@@ -98,6 +114,16 @@ const ContatoForm = ({ id, nome = '', descricao = '', foto = '' }) =>
     const camType = () =>
     {
         return (cameraType == Camera.Constants.Type.back) ? setCameraType(Camera.Constants.Type.front) : setCameraType(Camera.Constants.Type.back);
+    }
+
+    const goBack = () =>
+    {
+        setCapturedImage(null);
+        setPreviewVisible(false);
+
+        setStartCamera(false);
+
+        navigation.setOptions({ headerShown: true });
     }
 
     if (startCamera)
@@ -122,6 +148,7 @@ const ContatoForm = ({ id, nome = '', descricao = '', foto = '' }) =>
                     camType={ camType }
                     flashButton={ handleFlashMode }
                     flMode={ flashMode }
+                    returnBack={ goBack }
                 />
             );
         }
